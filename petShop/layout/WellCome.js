@@ -2,6 +2,7 @@ import { Image, ScrollView, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 
 const WellCome = () => {
+  //long 
   return (
     <View style={styles.container}>
     <View style={styles.textContainer}>
