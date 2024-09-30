@@ -1,7 +1,6 @@
 import { Image, ScrollView, StyleSheet, Text, TextInput, View, TouchableOpacity, SafeAreaView, KeyboardAvoidingView, ToastAndroid } from 'react-native'
 import React, { useState, useEffect } from 'react'
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { URL } from './HomeScreen';
 import CheckBox from '@react-native-community/checkbox';
 
 const Login = (props) => {
@@ -37,23 +36,18 @@ const Login = (props) => {
 
 
 
-    const doLogin = () => {
-
+    const doLogin = async () => {
         const errors = getErrors(email, password);
         if (Object.keys(errors).length > 0) {
-
-            seterrors(errors)
-
+            seterrors(errors);
             return;
-
         } else {
-
             // thực hiện fetch lấy dữ liệu về
             let url_check_login = `${URL}/users?email=` + email;
             fetch(url_check_login)
-                .then((res) => { return res.json(); })
+                .then((res) => res.json())
                 .then(async (res_login) => {
-                    if (res_login.length != 1) {
+                    if (res_login.length !== 1) {
                         seterrors({ email: 'Email không tồn tại' });
                     } else {
                         let objU = res_login[0];
@@ -64,36 +58,30 @@ const Login = (props) => {
                             try {
                                 const jsonString = JSON.stringify(objU);
                                 await AsyncStorage.setItem('loginInfo', jsonString);
-                                await AsyncStorage.setItem('username', objU.username); // Lưu username vào AsyncStorage
+                                await AsyncStorage.setItem('username', objU.username);
                                 await AsyncStorage.setItem('email', email);
-                                console.log(username);
-                                  // Đăng nhập thành công, lưu thông tin tài khoản vào AsyncStorage nếu người dùng chọn tùy chọn "Nhớ tài khoản"
-                if (toggleCheckBox) {
-                    await AsyncStorage.setItem('savedEmail', email);
-                    await AsyncStorage.setItem('savedPassword', password);
-                } else {
-                    // Xóa thông tin tài khoản trong AsyncStorage nếu người dùng không chọn tùy chọn "Nhớ tài khoản"
-                    await AsyncStorage.removeItem('savedEmail');
-                    await AsyncStorage.removeItem('savedPassword');
-                }
+    
+                                if (toggleCheckBox) {
+                                    await AsyncStorage.setItem('savedEmail', email);
+                                    await AsyncStorage.setItem('savedPassword', password);
+                                } else {
+                                    await AsyncStorage.removeItem('savedEmail');
+                                    await AsyncStorage.removeItem('savedPassword');
+                                }
+    
                                 seterrors({});
                                 ToastAndroid.show('Đăng nhập thành công', ToastAndroid.SHORT);
-                                props.navigation.navigate('DrawerNavigator');
-
+                                props.navigation.navigate('TrangChu'); // Chuyển đến màn hình TrangChu
+    
                             } catch (e) {
                                 console.log(e);
                             }
                         }
                     }
-
-
-                }
-
-
-                )
+                });
         }
-
-    }
+    };
+    
 
 
     const getErrors = (email, password) => {
@@ -124,7 +112,7 @@ const Login = (props) => {
                     <View>
                         <Image
 
-                            source={require('../img/logo_login.png')}
+                            
                             style={{ width: 433, height: 370 }}
                         />
                     </View>
@@ -168,7 +156,7 @@ const Login = (props) => {
                             style={{ position: 'absolute', right: 40, top: 25 }}
                         >
                             <Image
-                                source={showPassword ? require('../img/eye.png') : require('../img/eye1.png')}
+                               
                                 style={{ width: 24, height: 24, tintColor: 'black' }}
                             />
                         </TouchableOpacity>
@@ -226,7 +214,7 @@ const Login = (props) => {
                         <TouchableOpacity
                         >
                             <Image
-                                source={require('../img/icon_google.png')}
+                               
                                 style={{ width: 30, height: 30 }}
                             />
 
@@ -235,7 +223,7 @@ const Login = (props) => {
                         <TouchableOpacity
                         >
                             <Image
-                                source={require('../img/icon_facebook.png')}
+                               
                                 style={{ width: 30, height: 30, marginLeft: 30 }}
                             />
 
