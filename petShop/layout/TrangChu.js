@@ -5,7 +5,7 @@ const TrangChu = () => {
   return (
     <View>
       <Text>TrangChu</Text>
-      <Text>ádasdasdasdasd</Text>
+      <Text>test thu</Text>
     </View>
   )
 }

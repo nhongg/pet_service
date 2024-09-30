@@ -1,22 +1,19 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 import WellCome from './layout/WellCome';
+import Login from './layout/Login'; // Đảm bảo bạn có màn hình Login
 
-export default function App() {
+const Stack = createStackNavigator();
+
+const App = () => {
   return (
-    <View>
-      <WellCome/>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="WellCome">
+        <Stack.Screen name="WellCome" component={WellCome} />
+        <Stack.Screen name="Login" component={Login} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;

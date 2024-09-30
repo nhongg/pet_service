@@ -1,7 +1,6 @@
 import { Image, ScrollView, StyleSheet, Text, TextInput, View, TouchableOpacity, SafeAreaView, KeyboardAvoidingView, ToastAndroid } from 'react-native'
 import React, { useState, useEffect } from 'react'
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { URL } from './HomeScreen';
 import CheckBox from '@react-native-community/checkbox';
 
 const Login = (props) => {
@@ -124,7 +123,7 @@ const Login = (props) => {
                     <View>
                         <Image
 
-                            source={require('../img/logo_login.png')}
+                            
                             style={{ width: 433, height: 370 }}
                         />
                     </View>
@@ -168,7 +167,7 @@ const Login = (props) => {
                             style={{ position: 'absolute', right: 40, top: 25 }}
                         >
                             <Image
-                                source={showPassword ? require('../img/eye.png') : require('../img/eye1.png')}
+                               
                                 style={{ width: 24, height: 24, tintColor: 'black' }}
                             />
                         </TouchableOpacity>
@@ -226,7 +225,7 @@ const Login = (props) => {
                         <TouchableOpacity
                         >
                             <Image
-                                source={require('../img/icon_google.png')}
+                               
                                 style={{ width: 30, height: 30 }}
                             />
 
@@ -235,7 +234,7 @@ const Login = (props) => {
                         <TouchableOpacity
                         >
                             <Image
-                                source={require('../img/icon_facebook.png')}
+                               
                                 style={{ width: 30, height: 30, marginLeft: 30 }}
                             />
 
