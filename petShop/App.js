@@ -1,7 +1,8 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import WellCome from './layout/WellCome';
-import Login from './layout/Login'; // Đảm bảo bạn có màn hình Login
+import Login from './layout/Login';
+import TrangChu from './layout/TrangChu'; // Import TrangChu
 
 const Stack = createStackNavigator();
 
@@ -11,6 +12,7 @@ const App = () => {
       <Stack.Navigator initialRouteName="WellCome">
         <Stack.Screen name="WellCome" component={WellCome} />
         <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="TrangChu" component={TrangChu} /> {/* Thêm TrangChu */}
       </Stack.Navigator>
     </NavigationContainer>
   );
