@@ -1,7 +1,6 @@
 import { Image, ScrollView, StyleSheet, Text, TextInput, View, TouchableOpacity, SafeAreaView, KeyboardAvoidingView, ToastAndroid } from 'react-native'
 import React, { useState, useEffect } from 'react'
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { URL } from './HomeScreen';
 import CheckBox from '@react-native-community/checkbox';
 
 const Login = (props) => {
@@ -13,106 +12,106 @@ const Login = (props) => {
     const [username, setUsername] = useState('');
     const [toggleCheckBox, setToggleCheckBox] = useState(false)
 
-    useEffect(() => {
-        // Lấy thông tin tài khoản từ AsyncStorage khi màn hình được tạo
-        const getAccountInfoFromStorage = async () => {
-            try {
-                const savedEmail = await AsyncStorage.getItem('savedEmail');
-                const savedPassword = await AsyncStorage.getItem('savedPassword');
-                if (savedEmail && savedPassword) {
-                    setemail(savedEmail);
-                    setpassword(savedPassword);
-                    setToggleCheckBox(true); // Đánh dấu đã chọn tùy chọn "Nhớ tài khoản"
-                }
-            } catch (error) {
-                console.log('Lỗi khi lấy thông tin tài khoản từ AsyncStorage:', error);
-            }
-        };
-        getAccountInfoFromStorage();
-    }, []);
+    // useEffect(() => {
+    //     // Lấy thông tin tài khoản từ AsyncStorage khi màn hình được tạo
+    //     const getAccountInfoFromStorage = async () => {
+    //         try {
+    //             const savedEmail = await AsyncStorage.getItem('savedEmail');
+    //             const savedPassword = await AsyncStorage.getItem('savedPassword');
+    //             if (savedEmail && savedPassword) {
+    //                 setemail(savedEmail);
+    //                 setpassword(savedPassword);
+    //                 setToggleCheckBox(true); // Đánh dấu đã chọn tùy chọn "Nhớ tài khoản"
+    //             }
+    //         } catch (error) {
+    //             console.log('Lỗi khi lấy thông tin tài khoản từ AsyncStorage:', error);
+    //         }
+    //     };
+    //     getAccountInfoFromStorage();
+    // }, []);
 
-    const toggleShowPassword = () => {
-        setShowPassword(!showPassword);
-    };
-
-
-
-    const doLogin = () => {
-
-        const errors = getErrors(email, password);
-        if (Object.keys(errors).length > 0) {
-
-            seterrors(errors)
-
-            return;
-
-        } else {
-
-            // thực hiện fetch lấy dữ liệu về
-            let url_check_login = `${URL}/users?email=` + email;
-            fetch(url_check_login)
-                .then((res) => { return res.json(); })
-                .then(async (res_login) => {
-                    if (res_login.length != 1) {
-                        seterrors({ email: 'Email không tồn tại' });
-                    } else {
-                        let objU = res_login[0];
-                        if (objU.password !== password) {
-                            seterrors({ password: 'Mật khẩu không đúng' });
-                            return;
-                        } else {
-                            try {
-                                const jsonString = JSON.stringify(objU);
-                                await AsyncStorage.setItem('loginInfo', jsonString);
-                                await AsyncStorage.setItem('username', objU.username); // Lưu username vào AsyncStorage
-                                await AsyncStorage.setItem('email', email);
-                                console.log(username);
-                                  // Đăng nhập thành công, lưu thông tin tài khoản vào AsyncStorage nếu người dùng chọn tùy chọn "Nhớ tài khoản"
-                if (toggleCheckBox) {
-                    await AsyncStorage.setItem('savedEmail', email);
-                    await AsyncStorage.setItem('savedPassword', password);
-                } else {
-                    // Xóa thông tin tài khoản trong AsyncStorage nếu người dùng không chọn tùy chọn "Nhớ tài khoản"
-                    await AsyncStorage.removeItem('savedEmail');
-                    await AsyncStorage.removeItem('savedPassword');
-                }
-                                seterrors({});
-                                ToastAndroid.show('Đăng nhập thành công', ToastAndroid.SHORT);
-                                props.navigation.navigate('DrawerNavigator');
-
-                            } catch (e) {
-                                console.log(e);
-                            }
-                        }
-                    }
+    // const toggleShowPassword = () => {
+    //     setShowPassword(!showPassword);
+    // };
 
 
-                }
+
+    // const doLogin = () => {
+
+    //     const errors = getErrors(email, password);
+    //     if (Object.keys(errors).length > 0) {
+
+    //         seterrors(errors)
+
+    //         return;
+
+    //     } else {
+
+    //         // thực hiện fetch lấy dữ liệu về
+    //         let url_check_login = `${URL}/users?email=` + email;
+    //         fetch(url_check_login)
+    //             .then((res) => { return res.json(); })
+    //             .then(async (res_login) => {
+    //                 if (res_login.length != 1) {
+    //                     seterrors({ email: 'Email không tồn tại' });
+    //                 } else {
+    //                     let objU = res_login[0];
+    //                     if (objU.password !== password) {
+    //                         seterrors({ password: 'Mật khẩu không đúng' });
+    //                         return;
+    //                     } else {
+    //                         try {
+    //                             const jsonString = JSON.stringify(objU);
+    //                             await AsyncStorage.setItem('loginInfo', jsonString);
+    //                             await AsyncStorage.setItem('username', objU.username); // Lưu username vào AsyncStorage
+    //                             await AsyncStorage.setItem('email', email);
+    //                             console.log(username);
+    //                               // Đăng nhập thành công, lưu thông tin tài khoản vào AsyncStorage nếu người dùng chọn tùy chọn "Nhớ tài khoản"
+    //             if (toggleCheckBox) {
+    //                 await AsyncStorage.setItem('savedEmail', email);
+    //                 await AsyncStorage.setItem('savedPassword', password);
+    //             } else {
+    //                 // Xóa thông tin tài khoản trong AsyncStorage nếu người dùng không chọn tùy chọn "Nhớ tài khoản"
+    //                 await AsyncStorage.removeItem('savedEmail');
+    //                 await AsyncStorage.removeItem('savedPassword');
+    //             }
+    //                             seterrors({});
+    //                             ToastAndroid.show('Đăng nhập thành công', ToastAndroid.SHORT);
+    //                             props.navigation.navigate('DrawerNavigator');
+
+    //                         } catch (e) {
+    //                             console.log(e);
+    //                         }
+    //                     }
+    //                 }
 
 
-                )
-        }
-
-    }
+    //             }
 
 
-    const getErrors = (email, password) => {
-        const errors = {};
+    //             )
+    //     }
 
-        if (!email) {
-            errors.email = "Vui lòng nhập Email"
-        } else if (!email.includes('@') || !email.includes('.')) {
-            errors.email = "Email không hợp lệ";
-        }
+    // }
 
-        if (!password) {
-            errors.password = "Vui lòng nhập Password"
-        } else if (password.length < 6) {
-            errors.password = "Mật khẩu tối thiểu phải có 6 ký tự"
-        }
 
-        return errors;
-    }
+    // const getErrors = (email, password) => {
+    //     const errors = {};
+
+    //     if (!email) {
+    //         errors.email = "Vui lòng nhập Email"
+    //     } else if (!email.includes('@') || !email.includes('.')) {
+    //         errors.email = "Email không hợp lệ";
+    //     }
+
+    //     if (!password) {
+    //         errors.password = "Vui lòng nhập Password"
+    //     } else if (password.length < 6) {
+    //         errors.password = "Mật khẩu tối thiểu phải có 6 ký tự"
+    //     }
+
+    //     return errors;
+    // }
 
     return (
         <SafeAreaView style={st.background}>
@@ -124,7 +123,7 @@ const Login = (props) => {
                     <View>
                         <Image
 
-                            source={require('../img/logo_login.png')}
+                            source={require('../image/wellcome.png')}
                             style={{ width: 433, height: 370 }}
                         />
                     </View>
@@ -132,22 +131,22 @@ const Login = (props) => {
                     <Text style={st.welcom2}>Đăng nhập tài khoản</Text>
 
                     {/* // Nhập username */}
-                    <TextInput
+                    {/* <TextInput
                         style={st.khung}
                         value={email}
                         onChangeText={(txt) => { setemail(txt) }}
                         placeholder="Nhập email"
                         placeholderTextColor="gray"
-                    />
+                    /> */}
 
-                    {errors.email && (
+                    {/* {errors.email && (
                         <Text style={{ fontSize: 16, color: 'red', marginLeft: 20 }}>
                             {errors.email}
                         </Text>
-                    )}
+                    )} */}
 
                     {/* // Nhập password */}
-                    <View>
+                    {/* <View>
                         <TextInput
                             style={st.khung}
                             value={password}
@@ -172,48 +171,48 @@ const Login = (props) => {
                                 style={{ width: 24, height: 24, tintColor: 'black' }}
                             />
                         </TouchableOpacity>
-                    </View>
+                    </View> */}
 
-                    <View style={{ flexDirection: 'row', marginHorizontal: 20, justifyContent: 'space-between' }}>
+                    {/* <View style={{ flexDirection: 'row', marginHorizontal: 20, justifyContent: 'space-between' }}>
 
-                            <View style = {{flexDirection: 'row'}}>
+                        <View style={{ flexDirection: 'row' }}>
 
-                           
-                        <CheckBox
 
-                            disabled={false}
-                            value={toggleCheckBox}
-                            onValueChange={(newValue) => setToggleCheckBox(newValue)}
-                        />
-                        <Text style = {{top: 5}}>Nhớ tài khoản</Text>
+                            <CheckBox
+
+                                disabled={false}
+                                value={toggleCheckBox}
+                                onValueChange={(newValue) => setToggleCheckBox(newValue)}
+                            />
+                            <Text style={{ top: 5 }}>Nhớ tài khoản</Text>
                         </View>
                         <TouchableOpacity>
                             <Text style={{ color: 'green', top: 5 }}>Forgot Password ?</Text>
                         </TouchableOpacity>
 
-                    </View>
+                    </View> */}
 
-                   
+
 
 
 
 
                     {/* // Button Login */}
 
-                    <TouchableOpacity
+                    {/* <TouchableOpacity
                         // onPress={doLogin}
                         onPress={() => navigation.navigate('DrawerNavigator')}
                         style={st.khungButton}
 
                     >
                         <Text style={{ color: "white", textAlign: 'center', fontSize: 20, fontWeight: 'bold' }}>Đăng nhập</Text>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
 
-                    <View style={st.container}>
+                    {/* <View style={st.container}>
                         <View style={st.line}></View>
                         <Text style={st.text}>Hoặc</Text>
                         <View style={st.line}></View>
-                    </View>
+                    </View> */}
 
 
 
@@ -225,19 +224,19 @@ const Login = (props) => {
                     <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
                         <TouchableOpacity
                         >
-                            <Image
+                            {/* <Image
                                 source={require('../img/icon_google.png')}
                                 style={{ width: 30, height: 30 }}
-                            />
+                            /> */}
 
                         </TouchableOpacity>
 
                         <TouchableOpacity
                         >
-                            <Image
+                            {/* <Image
                                 source={require('../img/icon_facebook.png')}
                                 style={{ width: 30, height: 30, marginLeft: 30 }}
-                            />
+                            /> */}
 
                         </TouchableOpacity>
                     </View>
@@ -246,7 +245,7 @@ const Login = (props) => {
                         <Text style={{ color: "gray", fontWeight: 'bold', textAlign: 'center', marginTop: 15 }}>
                             Bạn không có tài khoản?</Text>
 
-                        <TouchableOpacity onPress={() => navigation.navigate("Register")}>
+                        <TouchableOpacity onPress={() => navigation.navigate("Sigin")}>
                             <Text style={{ color: "green", fontWeight: 'bold', marginTop: 15 }}> Tạo tài khoản</Text>
                         </TouchableOpacity>
 

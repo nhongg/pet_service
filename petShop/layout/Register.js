@@ -1,6 +1,5 @@
 import { Image, ScrollView, StyleSheet, Text, TextInput, View, CheckBox, Button, TouchableOpacity, SafeAreaView, KeyboardAvoidingView, ToastAndroid } from 'react-native'
 import React, { useState } from 'react'
-import { URL } from './HomeScreen';
 
 const Register = ({ navigation }) => {
 
@@ -11,78 +10,78 @@ const Register = ({ navigation }) => {
     const [showPassword, setShowPassword] = useState(false);
     const [showRePassword, setShowRePassword] = useState(false);
 
-    const toggleShowPassword = () => {
-        setShowPassword(!showPassword);
-    };
+    // const toggleShowPassword = () => {
+    //     setShowPassword(!showPassword);
+    // };
 
-    const toggleShowRePassword = () => {
-        setShowRePassword(!showRePassword);
-    };
+    // const toggleShowRePassword = () => {
+    //     setShowRePassword(!showRePassword);
+    // };
 
-    const [showErrors, setshowErrors] = useState(false);
-    const [errors, seterrors] = useState({});
+    // const [showErrors, setshowErrors] = useState(false);
+    // const [errors, seterrors] = useState({});
 
-    const getErrors = (email, username, password, repassword) => {
-        const errors = {};
-        if (!email) {
-            errors.email = "Vui lòng nhập Email"
-        } else if (!email.includes('@') || !email.includes('.')) {
-            errors.email = "Email không hợp lệ";
-        }
+    // const getErrors = (email, username, password, repassword) => {
+    //     const errors = {};
+    //     if (!email) {
+    //         errors.email = "Vui lòng nhập Email"
+    //     } else if (!email.includes('@') || !email.includes('.')) {
+    //         errors.email = "Email không hợp lệ";
+    //     }
 
-        if (!username) {
-            errors.username = "Vui lòng nhập Username"
-        } else if (username.length < 6) {
-            errors.username = "Username phải có tối thiểu 6 ký tư"
-        }
+    //     if (!username) {
+    //         errors.username = "Vui lòng nhập Username"
+    //     } else if (username.length < 6) {
+    //         errors.username = "Username phải có tối thiểu 6 ký tư"
+    //     }
 
-        if (!password) {
-            errors.password = "Vui lòng nhập Password"
-        } else if (password.length < 6) {
-            errors.password = "Password phải có tối thiểu 6 ký tự"
-        }
+    //     if (!password) {
+    //         errors.password = "Vui lòng nhập Password"
+    //     } else if (password.length < 6) {
+    //         errors.password = "Password phải có tối thiểu 6 ký tự"
+    //     }
 
-        if (!repassword) {
-            errors.repassword = "Nhập lại Password"
-        } else if (repassword.length < 6) {
-            errors.repassword = "Password phải có tối thiểu 6 ký tự"
-        } else if (password !== repassword) {
-            errors.repassword = 'Password không khớp'
+    //     if (!repassword) {
+    //         errors.repassword = "Nhập lại Password"
+    //     } else if (repassword.length < 6) {
+    //         errors.repassword = "Password phải có tối thiểu 6 ký tự"
+    //     } else if (password !== repassword) {
+    //         errors.repassword = 'Password không khớp'
 
-        }
-        return errors;
-    }
-    const handelRegister = async () => {
-        const errors = getErrors(email, username, password, repassword);
-        if (Object.keys(errors).length > 0) {
-            setshowErrors(true)
-            seterrors(errors)
-            console.log(errors);
-        } else {
-            const response = await fetch(`${URL}/users`, {
-                method: 'POST',
-                body: JSON.stringify({
-                    id: Date.now() + Math.random(),
-                    username: username,
-                    email: email,
-                    password: password,
-                }),
-                headers: {
-                    'Content-type': 'application/json; charset=UTF-8',
-                },
-            })
+    //     }
+    //     return errors;
+    // }
+    // const handelRegister = async () => {
+    //     const errors = getErrors(email, username, password, repassword);
+    //     if (Object.keys(errors).length > 0) {
+    //         setshowErrors(true)
+    //         seterrors(errors)
+    //         console.log(errors);
+    //     } else {
+    //         const response = await fetch(`${URL}/users`, {
+    //             method: 'POST',
+    //             body: JSON.stringify({
+    //                 id: Date.now() + Math.random(),
+    //                 username: username,
+    //                 email: email,
+    //                 password: password,
+    //             }),
+    //             headers: {
+    //                 'Content-type': 'application/json; charset=UTF-8',
+    //             },
+    //         })
 
-            const result = await response.json();
-            if (result.id) {
-                seterrors({});
-                setshowErrors(false);
-                ToastAndroid.show('Đăng ký thành công', ToastAndroid.SHORT);
-                navigation.goBack();
-            }
+    //         const result = await response.json();
+    //         if (result.id) {
+    //             seterrors({});
+    //             setshowErrors(false);
+    //             ToastAndroid.show('Đăng ký thành công', ToastAndroid.SHORT);
+    //             navigation.goBack();
+    //         }
 
-        }
+    //     }
 
-    }
+    // }
 
 
     return (
@@ -97,7 +96,7 @@ const Register = ({ navigation }) => {
                     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                         <Image
 
-                            source={require('../img/logo_login.png')}
+                            source={require('../image/wellcome.png')}
                             style={{ width: 433, height: 370 }}
                         />
                     </View>
@@ -105,7 +104,7 @@ const Register = ({ navigation }) => {
                     <Text style={st.welcom}>Đăng ký!!</Text>
                     <Text style={st.welcom2}>Tạo tài khoản</Text>
 
-                    <View>
+                    {/* <View>
                         <TextInput
                             style={st.khung}
                             value={username}
@@ -119,9 +118,9 @@ const Register = ({ navigation }) => {
                             </Text>
                         )}
 
-                    </View>
+                    </View> */}
 
-                    <View>
+                    {/* <View>
                         <TextInput
                             style={st.khung}
                             value={email}
@@ -133,12 +132,12 @@ const Register = ({ navigation }) => {
                             <Text style={{ fontSize: 16, color: 'red', marginLeft: 20 }}>
                                 {errors.email}
                             </Text>
-                        )}
+                        )} 
 
-                    </View>
+                    </View>*/}
 
 
-                    <View>
+                    {/* <View>
                         <TextInput
                             style={st.khung}
                             value={password}
@@ -165,9 +164,9 @@ const Register = ({ navigation }) => {
                                 style={{ width: 24, height: 24, tintColor: 'black' }}
                             />
                         </TouchableOpacity>
-                    </View>
+                    </View> */}
 
-                    <View>
+                    {/* <View>
                         <TextInput
                             style={st.khung}
                             value={repassword}
@@ -194,9 +193,9 @@ const Register = ({ navigation }) => {
                                 style={{ width: 24, height: 24, tintColor: 'black' }}
                             />
                         </TouchableOpacity>
-                    </View>
+                    </View> */}
 
-
+{/* 
                     <View style={{ flexDirection: 'row', flex: 1, justifyContent: 'center', marginHorizontal: 20 }}>
                         <Text style={{ color: "black", textAlign: 'center', marginTop: 10,marginLeft: 20 }}>
                            Để đăng ký tài khoản, bạn đồng ý</Text>
@@ -204,20 +203,20 @@ const Register = ({ navigation }) => {
                     </View>     
                     <TouchableOpacity onPress={() => {}}>
                             <Text style={{ color: "green",textDecorationLine: 'underline', marginLeft: 100 }}> Tems & Conditions and Privacy Policy</Text>
-                        </TouchableOpacity>
+                        </TouchableOpacity> */}
 
-                    <TouchableOpacity
+                    {/* <TouchableOpacity
                         onPress={() => handelRegister()}
                         style={st.khungButton}
                     >
                         <Text style={{ color: "white", textAlign: 'center', fontSize: 20, fontWeight: 'bold' }}>Đăng ký</Text>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
 
-                    <View style={st.container}>
+                    {/* <View style={st.container}>
                         <View style={st.line}></View>
                         <Text style={st.text}>Hoặc</Text>
                         <View style={st.line}></View>
-                    </View>
+                    </View> */}
 
 
 
@@ -226,7 +225,7 @@ const Register = ({ navigation }) => {
 
 
 
-                    <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+                    {/* <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
                         <TouchableOpacity
                         >
                             <Image
@@ -244,7 +243,7 @@ const Register = ({ navigation }) => {
                             />
 
                         </TouchableOpacity>
-                    </View>
+                    </View> */}
 
 
                     <View style={{ flexDirection: 'row', flex: 1, justifyContent: 'center' }}>
